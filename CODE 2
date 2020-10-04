@@ -1,0 +1,33 @@
+#include <String.h>
+void setup()
+{
+ Serial.begin(115200);
+ Serial2.begin(115200);
+ delay(500);
+}
+void loop()
+{
+ if (Serial2.available()){ 
+ Serial.write(Serial2.read());
+ }
+}
+void SendTextMessage()
+{
+ Serial.println("Sending Text...");
+ Serial1.print("AT+CMGF=1\r");
+ delay(100);
+ Serial1.println("AT+CMGS = \"+905322580571\"");
+ delay(100);
+ Serial1.println("WARNING! AREA 26 FIRE ALARM!");
+ delay(100);
+ Serial1.print((char)26);
+ delay(100);
+ Serial1.println();
+ Serial.println("Text Sent.");
+}
+void DialVoiceCall()
+{
+ Serial1.println("ATD+905322580571;");
+ delay(100);
+ Serial1.println();
+}
